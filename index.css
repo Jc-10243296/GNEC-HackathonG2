@@ -124,6 +124,23 @@ video {
     color: aliceblue;
     font-weight: bold;
    border: 5px #00040f;
-
-
+}
+.graph{
+    width:1200px;
+    height:650px;
+    display: flex;
+    flex-wrap: wrap;
+    flex-direction: row;
+    background-color: #202546;
+    margin-left: 100px;
+    border-color: #00040f;
+    border: 10px;
+    border-radius: 5px;
+}
+h3{
+    font-size:x-large;
+    margin-top: 30px;
+    color: aliceblue;
+    display: flex;
+    justify-content: center;
 }
