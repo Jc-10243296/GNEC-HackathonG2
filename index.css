@@ -1,0 +1,48 @@
+body{
+    background-color: #001444;
+    color: black;
+    margin: 0px;
+    font-family: Georgia;
+}
+.image-container{
+   display: flex;
+   flex-direction: column;
+   margin: 0px 100px 0px 100px;
+}
+footer{
+    color: black;
+display: flex;
+justify-content: space-between;
+background-color: rgba(200, 200, 200, 0.904);
+}
+h1{
+    color: white;
+    font-size: 75px;
+    margin-bottom: 0px;
+    display: flex;
+    margin-left: 95px;
+}
+.part1{
+    display: flex;
+    align-items: center;
+    border-top: black;
+}
+.p-container1{
+    display: flex;
+    font-size:x-large;
+    width: 1000px;
+    padding-left: 100px;
+    flex-direction: column;
+    margin-top: 0px;
+    color: white;
+}
+.image-container img{
+    border-radius: 50px;
+    width: 500px;
+}
+
+.title{
+    font-size: xx-large;
+    color: white;
+    display: flex;
+}
