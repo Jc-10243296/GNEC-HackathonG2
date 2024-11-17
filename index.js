@@ -1,8 +1,14 @@
 //Citations
 //Ocean Health Index. Year. ohi-global version: Global scenarios data for Ocean Health Index, [date downloaded]. National Center for Ecological Analysis and Synthesis, University of California, Santa Barbara. Available at: https://github.com/OHI-Science/ohi-global/releases
 
+let myChart;  // Global variable to hold the chart instance]
+let region;
+let year;
+let typeShort;
+let dimension;
+
 // id priority over place
-const retrieveData = async (id = -1, year = -1, typeShort = "", dimension = "", place = "") => {
+const retrieveData = async () => {
     const proxyUrl = "http://localhost:8080/";
     const targetUrl = "https://oceanhealthindex.org/data/scores.csv";
     let returnedData = "";
@@ -11,18 +17,17 @@ const retrieveData = async (id = -1, year = -1, typeShort = "", dimension = "", 
     const csvData = await response.text();
 
     const rows = csvData.split('\n');
-    console.log(id)
     for (let row of rows) {
         let data = row.split(',');
 
         // Apply the filters based on the passed parameters
-        if (id != -1 && data[4] != id) {
+        // if (id != "" && data[4] != id) {
+        //     continue;
+        // }
+        if (region != "" && data[5] != region) {
             continue;
         }
-        if (place != "" && data[5] != place && id === -1) {
-            continue;
-        }
-        if (year != -1 && data[0] != year) {
+        if (year != "" && data[0] != year) {
             continue;
         }
         if (typeShort != "" && data[1] != typeShort) {
@@ -41,7 +46,7 @@ const retrieveData = async (id = -1, year = -1, typeShort = "", dimension = "", 
 }
 
 // Data and configuration for the chart
-const configureChart = () => {
+const configureChart = (urmom) => { 
     const data = {
         labels: ['Red', 'Blue', 'Yellow', 'Green', 'Purple', 'Orange'], // Categories on the x-axis
         datasets: [{
@@ -64,11 +69,31 @@ const configureChart = () => {
                 'rgba(255, 159, 64, 1)'
             ],
             borderWidth: 1
+        }, {
+            label: '2024',
+            data: [5, 4, 3, 6, 7, 8], // Data points for each category
+            backgroundColor: [
+                'rgba(255, 99, 132, 0.2)',
+                'rgba(54, 162, 235, 0.2)',
+                'rgba(255, 206, 86, 0.2)',
+                'rgba(75, 192, 192, 0.2)',
+                'rgba(153, 102, 255, 0.2)',
+                'rgba(255, 159, 64, 0.2)'
+            ],
+            borderColor: [
+                'rgba(255, 99, 132, 1)',
+                'rgba(54, 162, 235, 1)',
+                'rgba(255, 206, 86, 1)',
+                'rgba(75, 192, 192, 1)',
+                'rgba(153, 102, 255, 1)',
+                'rgba(255, 159, 64, 1)'
+            ],
+            borderWidth: 1
         }]
     };
 
     const config = {
-        type: 'line', // Chart type (bar chart)
+        type: 'bar', // Chart type (bar chart)
         data: data,
         options: {
             scales: {
@@ -79,19 +104,41 @@ const configureChart = () => {
         }
     };
 
+    if (myChart) {
+        myChart.destroy();
+    }
+
     // Create a new Chart instance and render it on the canvas
-    const myChart = new Chart(
+    myChart = new Chart(
         document.getElementById('myChart'), // The canvas element
         config // The configuration object
     );
+    chartGenerated = true;
 }
 // An async function to call retrieveData and update the HTML
-const displayData = async () => {
-    const data = await retrieveData(163, 2022, "AO"); // Use await to get the data
-    document.getElementById('analysis').innerText = data; // Update the HTML with the result
+const displayData = async (dataType) => {
+    region = dataType[0];
+    year = dataType[1];
+    typeShort = dataType[2];
+    dimension = dataType[3]
+    const data = await retrieveData(); // Use await to get the data
+    console.log(data)
+    //document.getElementById('analysis').innerText = data; // Update the HTML with the result
+    configureChart(data);
 }
-displayData();
-configureChart();
+
+function handleClick() {
+    let dataTypes = ["region", "year", "issue", "dataType"]
+    for (let i = 0; i < dataTypes.length; i++) {
+        let e = document.getElementById(dataTypes[i]);
+        dataTypes[i] = e.value;
+    }
+    displayData(dataTypes);
+}
+
+const button = document.getElementById("ClickMe");
+button.addEventListener("click", handleClick);
+let chartGenerated = false;
 
 // const IDtoRegion = {
 //     '0': 'Global average',

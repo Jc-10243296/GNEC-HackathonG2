@@ -1,13 +1,16 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Ocean Health Webpage</title>
-    <link rel="stylesheet" href="index.css"></link>
+    <link rel="stylesheet" href="index.css">
+    </link>
     <script type="module" src="index.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
 </head>
+
 <body>
     <div class="topbar">
         <p>Ocean Health Webpage</p>
@@ -15,101 +18,148 @@
     <video controls autoplay loop src="ocean.mp4.mp4" width="1423"></video>
     <div class="fade">
     </div>
-<h1>Water Pollution and it's Impact</h1>
-    <div class = "part1">  
-        <div class= "p-container1">
-            <p> &emsp;Water pollution is a growing environmental crisis, with oceans being one of its most affected ecosystems. Every year, millions of tons of plastic waste, chemicals, and untreated sewage find their way into the ocean, threatening marine life and disrupting the delicate balance of aquatic ecosystems. Pollutants such as oil spills, agricultural runoff, and microplastics contaminate the water, making it toxic for marine creatures and threatening the health of coral reefs, fish, and even the humans who rely on seafood for sustenance. The accumulation of these pollutants not only harms biodiversity but also damages the ocean's ability to regulate climate, as healthy oceans play a vital role in absorbing carbon dioxide. Without urgent action to reduce pollution and protect marine environments, the oceans will continue to suffer, and so will the many species, including humans, who depend on them.
-        </p></div>
-        <div class = "image-container">
-       <img src="https://greencoast.org/wp-content/uploads/2023/02/ways-to-reduce-water-pollution.jpg" alt="Polluted Water Picture">        </div>
+    <h1>Water Pollution and it's Impact</h1>
+    <div class="part1">
+        <div class="p-container1">
+            <p> &emsp;Water pollution is a growing environmental crisis, with oceans being one of its most affected
+                ecosystems. Every year, millions of tons of plastic waste, chemicals, and untreated sewage find their
+                way into the ocean, threatening marine life and disrupting the delicate balance of aquatic ecosystems.
+                Pollutants such as oil spills, agricultural runoff, and microplastics contaminate the water, making it
+                toxic for marine creatures and threatening the health of coral reefs, fish, and even the humans who rely
+                on seafood for sustenance. The accumulation of these pollutants not only harms biodiversity but also
+                damages the ocean's ability to regulate climate, as healthy oceans play a vital role in absorbing carbon
+                dioxide. Without urgent action to reduce pollution and protect marine environments, the oceans will
+                continue to suffer, and so will the many species, including humans, who depend on them.
+            </p>
+        </div>
+        <div class="image-container">
+            <img src="https://greencoast.org/wp-content/uploads/2023/02/ways-to-reduce-water-pollution.jpg"
+                alt="Polluted Water Picture">
+        </div>
     </div>
-    <div class ="graphpart">
-    <h3>Ocean Health Index Analysis Graph</h3>
-    <div class="graph">
-        <select name="region" id="region">
-            <option value="Global average">Global average</option>
-            <option value="Croatia">Croatia</option>
-            <option value="Nigeria">Nigeria</option>
-            <option value="United States">United States</option>
-          </select>
-          <select name="year" id="year">
-            <option value="2022">2022</option>
-            <option value="2015">2015</option>
-            <option value="2018">2018</option>
-            <option value="2023">2023</option>
-          </select>
-          <select name="issue" id="issue">
-            <option value="TR">Tourism & recreation</option>
-            <option value="BD">Biodiversity</option>
-            <option value="NP">Natural products</option>
-            <option value="SPP">Species condition (subgoal)</option>
-          </select>
-          <select name="dataType" id="dataType">
-            <option value="trend">Trend</option>
-            <option value="future">Future</option>
-            <option value="status">Status</option>
-            <option value="score">Score</option>
-          </select>
-        <canvas id="myChart" width="400" height="200"></canvas>
-    </div>
-    <p>Clawson, G. (2015). Releases · Ohi-Science/OHI-Global. GitHub. <a href="https://github.com/OHI-Science/ohi-global/releases" target="_blank">https://github.com/OHI-Science/ohi-global/releases</a></p>
+    <div class="graphpart">
+        <h3>Ocean Health Index Analysis Graph</h3>
+        <div class="graph">
+            <select name="region" id="region">
+                <option value="" selected="selected">None</option>
+                <option value="Global average">Global average</option>
+                <option value="Croatia">Croatia</option>
+                <option value="Nigeria">Nigeria</option>
+                <option value="United States">United States</option>
+              </select>
+              <select name="year" id="year">
+                <option value="" selected="selected">None</option>
+                <option value="2022">2022</option>
+                <option value="2015">2015</option>
+                <option value="2018">2018</option>
+                <option value="2023">2023</option>
+              </select>
+              <select name="issue" id="issue">
+                <option value="" selected="selected">None</option>
+                <option value="TR">Tourism & recreation</option>
+                <option value="BD">Biodiversity</option>
+                <option value="NP">Natural products</option>
+                <option value="SPP">Species condition (subgoal)</option>
+              </select>
+              <select name="dataType" id="dataType">
+                <option value="" selected="selected">None</option>
+                <option value="trend">Trend</option>
+                <option value="future">Future</option>
+                <option value="status">Status</option>
+                <option value="score">Score</option>
+              </select>
+            <button id="ClickMe">Click me!</button>
+            <canvas id="myChart" width="400" height="200"></canvas>
+        </div>
+        <p>Clawson, G. (2015). Releases · Ohi-Science/OHI-Global. GitHub. <a
+                href="https://github.com/OHI-Science/ohi-global/releases"
+                target="_blank">https://github.com/OHI-Science/ohi-global/releases</a></p>
     </div>
     <h1>How to Take Action</h1>
-    <div class ="action">
-        <div class="p-container2"><p>
-            &emsp;Taking action against water pollution requires a multifaceted approach that involves both individual responsibility and collective effort. On a personal level, people can reduce their use of harmful chemicals, properly dispose of hazardous waste, and conserve water to prevent overuse and contamination. Communities and local governments can implement stricter regulations on industrial discharges and encourage the use of sustainable practices in agriculture and manufacturing. Public awareness campaigns play a crucial role in educating citizens about the dangers of water pollution and the importance of protecting water sources. Additionally, investing in wastewater treatment technologies and supporting environmental organizations can help reduce pollution at its source, ensuring cleaner water for future generations. By combining individual actions, policy reforms, and technological innovations, we can make significant strides in preserving our water resources.
-        </p></div>
+    <div class="action">
+        <div class="p-container2">
+            <p>
+                &emsp;Taking action against water pollution requires a multifaceted approach that involves both
+                individual responsibility and collective effort. On a personal level, people can reduce their use of
+                harmful chemicals, properly dispose of hazardous waste, and conserve water to prevent overuse and
+                contamination. Communities and local governments can implement stricter regulations on industrial
+                discharges and encourage the use of sustainable practices in agriculture and manufacturing. Public
+                awareness campaigns play a crucial role in educating citizens about the dangers of water pollution and
+                the importance of protecting water sources. Additionally, investing in wastewater treatment technologies
+                and supporting environmental organizations can help reduce pollution at its source, ensuring cleaner
+                water for future generations. By combining individual actions, policy reforms, and technological
+                innovations, we can make significant strides in preserving our water resources.
+            </p>
+        </div>
         <div class="image-container">
-        <img src="https://www.environmentalconsortium.org/wp-content/uploads/2023/10/sustainable-solutions-to-water-pollution-the-role-of-community-action.jpg" alt="">
+            <img src="https://www.environmentalconsortium.org/wp-content/uploads/2023/10/sustainable-solutions-to-water-pollution-the-role-of-community-action.jpg"
+                alt="">
         </div>
     </div>
     <h2>Other References and Articles</h2>
     <div class="references">
         <div class="content">
             <img src="https://ourworldindata.org/default-thumbnail.png" alt="">
-            <a href="https://ourworldindata.org/co2-and-greenhouse-gas-emissions#key-insights" target=_blank> Our World In Data</a>
+            <a href="https://ourworldindata.org/co2-and-greenhouse-gas-emissions#key-insights" target=_blank> Our World
+                In Data</a>
         </div>
         <div class="content">
-            <img src="https://coral.org/wp-content/uploads/2024/06/4-Blog-Why-Clean-Water-is-Vital-for-the-Future-of-Our-Oceans.jpg" alt="">
-            <a href="https://coral.org/en/blog/why-clean-water-is-vital-for-the-future-of-our-oceans/#:~:text=Contaminated%20water%20affects%20the%20health,humans%20who%20consume%20contaminated%20seafood." target="_blank">Why Clean Water is Our Future
-            </a> 
+            <img src="https://coral.org/wp-content/uploads/2024/06/4-Blog-Why-Clean-Water-is-Vital-for-the-Future-of-Our-Oceans.jpg"
+                alt="">
+            <a href="https://coral.org/en/blog/why-clean-water-is-vital-for-the-future-of-our-oceans/#:~:text=Contaminated%20water%20affects%20the%20health,humans%20who%20consume%20contaminated%20seafood."
+                target="_blank">Why Clean Water is Our Future
+            </a>
         </div>
         <div class="content">
-            <img src="https://www.niehs.nih.gov/research/programs/geh/geh_newsletter/sites/niehs-geh/files/research/programs/geh/geh_newsletter/2021/2/articles/featurearticle1.jpg" alt="">
-            <a href="https://www.niehs.nih.gov/research/programs/geh/geh_newsletter/2021/2/articles/new_study_finds_ocean_pollution_a_threat_to_human_health" target="_blank"> Ocean Pollution.<br> A Threat to Human Health</a>
+            <img src="https://www.niehs.nih.gov/research/programs/geh/geh_newsletter/sites/niehs-geh/files/research/programs/geh/geh_newsletter/2021/2/articles/featurearticle1.jpg"
+                alt="">
+            <a href="https://www.niehs.nih.gov/research/programs/geh/geh_newsletter/2021/2/articles/new_study_finds_ocean_pollution_a_threat_to_human_health"
+                target="_blank"> Ocean Pollution.<br> A Threat to Human Health</a>
         </div>
         <div class="content">
-            <img src="http://oregonexplorer.info/sites/default/files/styles/large/public/Seal_pollution.png?itok=FCf7Oj5-" alt="">
-            <a href="https://oregonexplorer.info/content/coastal-pollution-and-water-quality-research?topic=65&ptopic=62" target="_blank"> Coastal Pollution and <br>Water Quality Research</a>
+            <img src="http://oregonexplorer.info/sites/default/files/styles/large/public/Seal_pollution.png?itok=FCf7Oj5-"
+                alt="">
+            <a href="https://oregonexplorer.info/content/coastal-pollution-and-water-quality-research?topic=65&ptopic=62"
+                target="_blank"> Coastal Pollution and <br>Water Quality Research</a>
         </div>
     </div>
     <h2>Take Action Now!</h2>
     <div class="references">
         <div class="content">
-            <img src="https://www.drought.gov/sites/default/files/styles/f_square_480_480/public/hero/partners/noaa-emblem-rgb-withspace-2022.png.jpeg?itok=FvIrcLT5" alt="">
-            <a href="https://oceanservice.noaa.gov/ocean/help-our-ocean.html#:~:text=Reduce%20Pollutants,pesticides%2C%20and%20cleaning%20products%20properly." target=_blank> National Ocean Service<br>How can you help our Ocean?</a>
+            <img src="https://www.drought.gov/sites/default/files/styles/f_square_480_480/public/hero/partners/noaa-emblem-rgb-withspace-2022.png.jpeg?itok=FvIrcLT5"
+                alt="">
+            <a href="https://oceanservice.noaa.gov/ocean/help-our-ocean.html#:~:text=Reduce%20Pollutants,pesticides%2C%20and%20cleaning%20products%20properly."
+                target=_blank> National Ocean Service<br>How can you help our Ocean?</a>
         </div>
         <div class="content">
             <img src="https://cleanwater.org/sites/default/files/2022-06/CW_March_IMG_1457a3cQ-1.jpg" alt="">
             <a href="https://cleanwater.org/who-we-are" target="_blank">Clean Water Action
-            </a> 
+            </a>
         </div>
         <div class="content">
-            <img src="https://www.montereybayaquarium.org/globalassets/mba/images/conservation-topics/istock-962590716.jpg?width=538&height=358&mode=crop&format=webp&quality=60" alt="">
-            <a href="https://www.montereybayaquarium.org/act-for-the-ocean/plastic-pollution/what-you-can-do" target="_blank"> Plastic Pollution.<br> What you can do</a>
+            <img src="https://www.montereybayaquarium.org/globalassets/mba/images/conservation-topics/istock-962590716.jpg?width=538&height=358&mode=crop&format=webp&quality=60"
+                alt="">
+            <a href="https://www.montereybayaquarium.org/act-for-the-ocean/plastic-pollution/what-you-can-do"
+                target="_blank"> Plastic Pollution.<br> What you can do</a>
         </div>
         <div class="content">
             <img src="https://www.aquaread.com/blog/wp-content/uploads/2023/05/turtle-swimming-coral-reef.jpeg" alt="">
-            <a href="https://oregonexplorer.info/content/coastal-pollution-and-water-quality-research?topic=65&ptopic=62" target="_blank"> 7 Ways We Can Stop Sea Pollution<br>Together</a>
+            <a href="https://oregonexplorer.info/content/coastal-pollution-and-water-quality-research?topic=65&ptopic=62"
+                target="_blank"> 7 Ways We Can Stop Sea Pollution<br>Together</a>
         </div>
     </div>
-        <footer>
-            <div class="copyright">
-                <i><p>UN Goals Tracker Website</p></i>
-            </div>
-            <div>
-                <i><p>Hackathon Project by: Jeffrey Chu, Justin Tamay</p></i>
-            </div>
-        </footer>
+    <footer>
+        <div class="copyright">
+            <i>
+                <p>UN Goals Tracker Website</p>
+            </i>
+        </div>
+        <div>
+            <i>
+                <p>Hackathon Project by: Jeffrey Chu, Justin Tamay</p>
+            </i>
+        </div>
+    </footer>
 </body>
+
 </html>
