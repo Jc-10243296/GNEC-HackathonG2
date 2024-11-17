@@ -88,12 +88,7 @@ h2{
     margin-right: 75px;
     padding-bottom: 50px;
 }
-a{
-    color: aliceblue;
-    display: flex;
-    justify-content: center;
-    padding-top: 10px;
-}
+
 .action{
     display: flex;
     flex-direction: row-reverse;
@@ -143,4 +138,21 @@ h3{
     color: aliceblue;
     display: flex;
     justify-content: center;
+}
+.graphpart p{
+    color: aliceblue;
+    display: flex;
+    justify-content: center;
+    padding-top: 10px;
+}
+a{
+    color: aliceblue;
+    display: flex;
+    justify-content: center;
+    padding-top: 10px;
+}
+.graphpart a{
+    color: aliceblue;
+    padding-top: 10px;
+    padding-top: 0px;
 }
