@@ -156,3 +156,11 @@ a{
     padding-top: 10px;
     padding-top: 0px;
 }
+
+#warning {
+    display:flex;
+    float: right;
+    font-size: small;
+    padding-left: 50px;
+    margin:0%
+}

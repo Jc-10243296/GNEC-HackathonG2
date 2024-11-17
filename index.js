@@ -6,20 +6,40 @@ let region;
 let year;
 let typeShort;
 let dimension;
+let chartGenerated = false;
+let yearList = [];
+let regionList = [];
+let typeShortList = [];
+let dimensionList = [];
 
 // id priority over place
 const retrieveData = async () => {
     const proxyUrl = "http://localhost:8080/";
     const targetUrl = "https://oceanhealthindex.org/data/scores.csv";
-    let returnedData = "";
+    let returnedData = [];
 
     const response = await fetch(proxyUrl + targetUrl);
     const csvData = await response.text();
 
     const rows = csvData.split('\n');
+
     for (let row of rows) {
         let data = row.split(',');
-
+        if (data[0] === "scenario") {
+            continue;
+        }
+        if (!yearList.includes(data[0])) {
+            yearList.push(data[0])
+        }
+        if (!regionList.includes(data[5])) {
+            regionList.push(data[5])
+        }
+        if (!typeShortList.includes(data[1])) {
+            typeShortList.push(data[1])
+        }
+        if (!dimensionList.includes(data[3])) {
+            dimensionList.push(data[3])
+        }
         // Apply the filters based on the passed parameters
         // if (id != "" && data[4] != id) {
         //     continue;
@@ -38,62 +58,271 @@ const retrieveData = async () => {
         }
 
         // Add matching row data to returnedData with actual newline
-        returnedData += row + '\n';  // Correctly add newline
+        returnedData.push(row);  // Correctly add newline
     }
-
-    console.log("finished");
     return returnedData;
 }
 
-// Data and configuration for the chart
-const configureChart = (urmom) => { 
-    const data = {
-        labels: ['Red', 'Blue', 'Yellow', 'Green', 'Purple', 'Orange'], // Categories on the x-axis
-        datasets: [{
-            label: '# of Votes',
-            data: [12, 19, 3, 5, 2, 3], // Data points for each category
-            backgroundColor: [
-                'rgba(255, 99, 132, 0.2)',
-                'rgba(54, 162, 235, 0.2)',
-                'rgba(255, 206, 86, 0.2)',
-                'rgba(75, 192, 192, 0.2)',
-                'rgba(153, 102, 255, 0.2)',
-                'rgba(255, 159, 64, 0.2)'
-            ],
-            borderColor: [
-                'rgba(255, 99, 132, 1)',
-                'rgba(54, 162, 235, 1)',
-                'rgba(255, 206, 86, 1)',
-                'rgba(75, 192, 192, 1)',
-                'rgba(153, 102, 255, 1)',
-                'rgba(255, 159, 64, 1)'
-            ],
-            borderWidth: 1
-        }, {
-            label: '2024',
-            data: [5, 4, 3, 6, 7, 8], // Data points for each category
-            backgroundColor: [
-                'rgba(255, 99, 132, 0.2)',
-                'rgba(54, 162, 235, 0.2)',
-                'rgba(255, 206, 86, 0.2)',
-                'rgba(75, 192, 192, 0.2)',
-                'rgba(153, 102, 255, 0.2)',
-                'rgba(255, 159, 64, 0.2)'
-            ],
-            borderColor: [
-                'rgba(255, 99, 132, 1)',
-                'rgba(54, 162, 235, 1)',
-                'rgba(255, 206, 86, 1)',
-                'rgba(75, 192, 192, 1)',
-                'rgba(153, 102, 255, 1)',
-                'rgba(255, 159, 64, 1)'
-            ],
-            borderWidth: 1
-        }]
+const generateDataYearEmpty = (GeneratedData) => {
+    let currentRegionList = [];
+    let currentTypeShortList = [];
+    let currentDimensionList = [];
+    let labelList = [];
+    let labelDoubleList = [];
+    let dataSetsList = [];
+
+    for (let data of GeneratedData) {
+        const dataSet = data.split(',')
+        if (!currentRegionList.includes(dataSet[5])) {
+            currentRegionList.push(dataSet[5])
+        }
+        if (!currentTypeShortList.includes(dataSet[1])) {
+            currentTypeShortList.push(dataSet[1])
+        }
+        if (!currentDimensionList.includes(dataSet[3])) {
+            currentDimensionList.push(dataSet[3])
+        }
+    }
+    let numDataSets = currentRegionList.length * currentTypeShortList.length * currentDimensionList.length;
+
+    for (let region of currentRegionList) {
+        for (let typeShort of currentTypeShortList) {
+            for (let dimension of currentDimensionList) {
+                labelList.push(region + " " + typeShort + " " + dimension);
+                labelDoubleList.push([region, typeShort, dimension])
+            }
+        }
+    }
+
+    for (let i = 0; i < numDataSets; i++) {
+        let dataList = [];
+        for (let data of GeneratedData) {
+            const dataSet = data.split(',')
+            if (dataSet[5] === labelDoubleList[i][0] && dataSet[1] === labelDoubleList[i][1] && dataSet[3] === labelDoubleList[i][2]) {
+                dataList.push(dataSet[6])
+            }
+        }
+        dataSetsList.push(dataSet(dataList, labelList[i]))
+    }
+    return {
+        labels: yearList, // Categories on the x-axis
+        datasets: dataSetsList
     };
+}
+
+const generateDataRegionEmpty = (GeneratedData) => {
+    let currentYearList = [];
+    let currentTypeShortList = [];
+    let currentDimensionList = [];
+    let labelList = [];
+    let labelDoubleList = [];
+    let dataSetsList = [];
+
+    for (let data of GeneratedData) {
+        const dataSet = data.split(',')
+        if (!currentYearList.includes(dataSet[0])) {
+            currentYearList.push(dataSet[0])
+        }
+        if (!currentTypeShortList.includes(dataSet[1])) {
+            currentTypeShortList.push(dataSet[1])
+        }
+        if (!currentDimensionList.includes(dataSet[3])) {
+            currentDimensionList.push(dataSet[3])
+        }
+    }
+    let numDataSets = currentTypeShortList.length * currentDimensionList.length * currentYearList.length;
+
+    for (let typeShort of currentTypeShortList) {
+        for (let dimension of currentDimensionList) {
+            for (let year of currentYearList) {
+                labelList.push(year + " " + typeShort + " " + dimension);
+                labelDoubleList.push([year, typeShort, dimension])
+            }
+        }
+    }
+
+    for (let i = 0; i < numDataSets; i++) {
+        let dataList = [];
+        for (let data of GeneratedData) {
+            const dataSet = data.split(',')
+            if (dataSet[0] === labelDoubleList[i][0] && dataSet[1] === labelDoubleList[i][1] && dataSet[3] === labelDoubleList[i][2]) {
+                dataList.push(dataSet[6])
+            }
+        }
+        dataSetsList.push(dataSet(dataList, labelList[i]))
+    }
+    return {
+        labels: regionList, // Categories on the x-axis
+        datasets: dataSetsList
+    };
+}
+
+const generateDataTypeShortEmpty = (GeneratedData) => {
+    let currentYearList = [];
+    let currentRegionList = [];
+    let currentDimensionList = [];
+    let labelList = [];
+    let labelDoubleList = [];
+    let dataSetsList = [];
+
+    for (let data of GeneratedData) {
+        const dataSet = data.split(',')
+        if (!currentYearList.includes(dataSet[0])) {
+            currentYearList.push(dataSet[0])
+        }
+        if (!currentRegionList.includes(dataSet[5])) {
+            currentRegionList.push(dataSet[5])
+        }
+        if (!currentDimensionList.includes(dataSet[3])) {
+            currentDimensionList.push(dataSet[3])
+        }
+    }
+    let numDataSets = currentRegionList.length * currentDimensionList.length * currentYearList.length;
+
+    for (let region of currentRegionList) {
+        for (let dimension of currentDimensionList) {
+            for (let year of currentYearList) {
+                labelList.push(year + " " + region + " " + dimension);
+                labelDoubleList.push([year, region, dimension])
+            }
+        }
+    }
+
+    for (let i = 0; i < numDataSets; i++) {
+        let dataList = [];
+        for (let data of GeneratedData) {
+            const dataSet = data.split(',')
+            if (dataSet[0] === labelDoubleList[i][0] && dataSet[5] === labelDoubleList[i][1] && dataSet[3] === labelDoubleList[i][2]) {
+                dataList.push(dataSet[6])
+            }
+        }
+        dataSetsList.push(dataSet(dataList, labelList[i]))
+    }
+    return {
+        labels: typeShortList, // Categories on the x-axis
+        datasets: dataSetsList
+    };
+}
+
+const generateDataDimensionEmpty = (GeneratedData) => {
+    let currentYearList = [];
+    let currentRegionList = [];
+    let currentTypeShortList = [];
+    let labelList = [];
+    let labelDoubleList = [];
+    let dataSetsList = [];
+
+    for (let data of GeneratedData) {
+        const dataSet = data.split(',')
+        if (!currentYearList.includes(dataSet[0])) {
+            currentYearList.push(dataSet[0])
+        }
+        if (!currentRegionList.includes(dataSet[5])) {
+            currentRegionList.push(dataSet[5])
+        }
+        if (!currentTypeShortList.includes(dataSet[1])) {
+            currentTypeShortList.push(dataSet[1])
+        }
+    }
+    let numDataSets = currentRegionList.length * currentTypeShortList.length * currentYearList.length;
+
+    for (let region of currentRegionList) {
+        for (let typeShort of currentTypeShortList) {
+            for (let year of currentYearList) {
+                labelList.push(year + " " + region + " " + typeShort);
+                labelDoubleList.push([year, region, typeShort])
+            }
+        }
+    }
+
+    for (let i = 0; i < numDataSets; i++) {
+        let dataList = [];
+        for (let data of GeneratedData) {
+            const dataSet = data.split(',')
+            if (dataSet[0] === labelDoubleList[i][0] && dataSet[5] === labelDoubleList[i][1] && dataSet[1] === labelDoubleList[i][2]) {
+                dataList.push(dataSet[6])
+            }
+        }
+        dataSetsList.push(dataSet(dataList, labelList[i]))
+    }
+    return {
+        labels: dimensionList, // Categories on the x-axis
+        datasets: dataSetsList
+    };
+}
+
+const generateDataAllFull = (GeneratedData) => {
+    let info = null;
+    // Loop through the GeneratedData array
+    for (let data of GeneratedData) {
+        const dataSet = data.split(',');
+        // Check conditions
+        if (
+            dataSet[0] === year &&
+            dataSet[1] === typeShort &&
+            dataSet[3] === dimension &&
+            dataSet[5] === region
+        ) {
+            info = dataSet[6];
+            console.log(info)
+        }
+    }
+
+    // Ensure datasets is an array
+    return {
+        labels: ["Statistic"], // Categories on the x-axis
+        datasets: [dataSet([info], "Statistic")]
+    };
+};
+
+
+const dataSet = (data, label) => {
+    return {
+        label: label,
+        data: data, // Data points for each category
+        backgroundColor: [
+            'rgba(255, 99, 132, 0.2)',
+            'rgba(54, 162, 235, 0.2)',
+            'rgba(255, 206, 86, 0.2)',
+            'rgba(75, 192, 192, 0.2)',
+            'rgba(153, 102, 255, 0.2)',
+            'rgba(255, 159, 64, 0.2)'
+        ],
+        borderColor: [
+            'rgba(255, 99, 132, 1)',
+            'rgba(54, 162, 235, 1)',
+            'rgba(255, 206, 86, 1)',
+            'rgba(75, 192, 192, 1)',
+            'rgba(153, 102, 255, 1)',
+            'rgba(255, 159, 64, 1)'
+        ],
+        borderWidth: 1
+    }
+}
+
+// Data and configuration for the chart
+const configureChart = (GeneratedData) => {
+    let data;
+    let type;
+    if (year === "") {
+        data = generateDataYearEmpty(GeneratedData)
+        type='line'
+    } else if (region === "") {
+        data = generateDataRegionEmpty(GeneratedData)
+        type='bar'
+    }else if (typeShort === "") {
+        data = generateDataTypeShortEmpty(GeneratedData)
+        type='bar'
+    } else if (dimension === ""){
+        data = generateDataDimensionEmpty(GeneratedData)
+        type='bar'
+    } else {
+        data = generateDataAllFull(GeneratedData)
+        type='bar'
+    }
 
     const config = {
-        type: 'bar', // Chart type (bar chart)
+        type: type, // Chart type (bar chart)
         data: data,
         options: {
             scales: {
@@ -124,7 +353,9 @@ const displayData = async (dataType) => {
     const data = await retrieveData(); // Use await to get the data
     console.log(data)
     //document.getElementById('analysis').innerText = data; // Update the HTML with the result
-    configureChart(data);
+    if (data.length < 5000) {
+        configureChart(data);
+    }
 }
 
 function handleClick() {
@@ -138,7 +369,6 @@ function handleClick() {
 
 const button = document.getElementById("ClickMe");
 button.addEventListener("click", handleClick);
-let chartGenerated = false;
 
 // const IDtoRegion = {
 //     '0': 'Global average',
