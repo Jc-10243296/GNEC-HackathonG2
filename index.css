@@ -124,13 +124,13 @@ video {
     width:1200px;
     height:650px;
     display: flex;
-    flex-wrap: wrap;
-    flex-direction: row;
+    align-items: flex-start;
     background-color: #202546;
     margin-left: 100px;
     border-color: #00040f;
     border: 10px;
     border-radius: 5px;
+    flex-wrap: wrap;
 }
 h3{
     font-size:x-large;
