@@ -1,0 +1,17 @@
+{
+  "name": "gnec-hackathong2",
+  "version": "1.0.0",
+  "description": "GNEC Hackathon project",
+  "main": "index.js",
+  "type": "module",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "chart.js": "^4.4.6",
+    "cors-anywhere": "^0.4.4",
+    "papaparse": "^5.4.1"
+  }
+}

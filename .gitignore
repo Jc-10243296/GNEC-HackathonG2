@@ -1,0 +1,4 @@
+Scrapy/.venv
+__pycache__/
+Scrapy
+node_modules

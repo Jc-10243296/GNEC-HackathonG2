@@ -5,6 +5,8 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Ocean Health Webpage</title>
     <link rel="stylesheet" href="index.css"></link>
+    <script type="module" src="index.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
 </head>
 <body>
     <div class="topbar">
@@ -20,6 +22,33 @@
         </p></div>
         <div class = "image-container">
        <img src="https://greencoast.org/wp-content/uploads/2023/02/ways-to-reduce-water-pollution.jpg" alt="Polluted Water Picture">        </div>
+    </div>
+    <div>
+        <select name="region" id="region">
+            <option value="Global average">Global average</option>
+            <option value="Croatia">Croatia</option>
+            <option value="Nigeria">Nigeria</option>
+            <option value="United States">United States</option>
+          </select>
+          <select name="year" id="year">
+            <option value="2022">2022</option>
+            <option value="2015">2015</option>
+            <option value="2018">2018</option>
+            <option value="2023">2023</option>
+          </select>
+          <select name="issue" id="issue">
+            <option value="TR">Tourism & recreation</option>
+            <option value="BD">Biodiversity</option>
+            <option value="NP">Natural products</option>
+            <option value="SPP">Species condition (subgoal)</option>
+          </select>
+          <select name="dataType" id="dataType">
+            <option value="trend">Trend</option>
+            <option value="future">Future</option>
+            <option value="status">Status</option>
+            <option value="score">Score</option>
+          </select>
+        <canvas id="myChart" width="400" height="200"></canvas>
     </div>
     <h1>How to Take Action</h1>
     <div class ="action">
